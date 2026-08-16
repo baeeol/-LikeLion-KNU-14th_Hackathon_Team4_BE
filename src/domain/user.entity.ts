@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { UserSkinType } from './user_skin_type.entity';
 
 @Entity()
 export class User {
@@ -16,6 +17,9 @@ export class User {
 
   @Column({ nullable: false })
   salt: string;
+
+  @OneToOne(() => UserSkinType, (userSkinType) => userSkinType.user)
+  skinType: UserSkinType;
 
   static create(
     nickname: string,
