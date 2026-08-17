@@ -1,5 +1,13 @@
-import { Column, Entity, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinTable,
+  ManyToMany,
+  OneToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 import { UserSkinType } from './user_skin_type.entity';
+import { CareProduct } from './care_product';
 
 @Entity()
 export class User {
@@ -20,6 +28,10 @@ export class User {
 
   @OneToOne(() => UserSkinType, (userSkinType) => userSkinType.user)
   skinType: UserSkinType;
+
+  @ManyToMany(() => CareProduct)
+  @JoinTable()
+  ownedProducts: CareProduct[];
 
   static create(
     nickname: string,
