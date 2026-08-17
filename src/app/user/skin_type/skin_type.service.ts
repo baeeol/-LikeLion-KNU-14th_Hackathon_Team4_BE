@@ -7,7 +7,7 @@ import {
 import { InjectRepository } from '@nestjs/typeorm';
 import { UserSkinType } from 'src/domain/user_skin_type.entity';
 import { Repository } from 'typeorm';
-import { ModifySkinTypeDto } from '../dto/ModifySkinType.dto';
+import { ModifySkinTypeDto } from './dto/ModifySkinType.dto';
 import { User } from 'src/domain/user.entity';
 
 @Injectable()

@@ -1,6 +1,6 @@
 import { Body, Controller, Param, Put } from '@nestjs/common';
 import { SkinTypeService } from './skin_type.service';
-import { ModifySkinTypeDto } from '../dto/ModifySkinType.dto';
+import { ModifySkinTypeDto } from './dto/ModifySkinType.dto';
 
 @Controller('/users/:userId/skin/type')
 export class SkinTypeController {
