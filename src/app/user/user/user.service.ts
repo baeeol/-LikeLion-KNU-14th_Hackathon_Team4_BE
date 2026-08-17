@@ -29,18 +29,24 @@ export class UserService {
       }
 
       const response = new GetUserByIdResponseDto();
-      response.id = user.id;
-      response.nickname = user.nickname;
-      response.age = user.age;
+      response.user = {
+        id: -1,
+        nickname: '',
+        age: -1,
+        skinType: { type: '미정' },
+      };
+      response.user.id = user.id;
+      response.user.nickname = user.nickname;
+      response.user.age = user.age;
       if (user.skinType.type === SkinType.DRY)
-        response.skinType = { type: '건성' };
+        response.user.skinType = { type: '건성' };
       else if (user.skinType.type === SkinType.OILY)
-        response.skinType = { type: '지성' };
+        response.user.skinType = { type: '지성' };
       else if (user.skinType.type === SkinType.COMBINATION)
-        response.skinType = { type: '복합성' };
+        response.user.skinType = { type: '복합성' };
       else if (user.skinType.type === SkinType.DEHYDRATED_OILY)
-        response.skinType = { type: '수부지' };
-      else response.skinType = { type: '미정' };
+        response.user.skinType = { type: '수부지' };
+      else response.user.skinType = { type: '미정' };
 
       return response;
     } catch (e) {
