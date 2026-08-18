@@ -25,14 +25,14 @@ export class CareProductService {
       let typeName: CareProductType = CareProductType.CLEANSER;
       if (keyword === '클렌저') typeName = CareProductType.CLEANSER;
       else if (keyword === '로션') typeName = CareProductType.LOTION;
+      else if (keyword === '에멀전') typeName = CareProductType.EMULSION;
       else if (keyword === '토너') typeName = CareProductType.TONER;
       else if (keyword === '스킨') typeName = CareProductType.SKIN;
       else if (keyword === '앰플') typeName = CareProductType.AMPULE;
       else if (keyword === '세럼') typeName = CareProductType.SERUM;
       else if (keyword === '에센스') typeName = CareProductType.ESSENCE;
       else if (keyword === '선크림') typeName = CareProductType.SUN_CREAM;
-      else if (keyword === '수분크림')
-        typeName = CareProductType.MOISTURE_CREAM;
+      else if (keyword === '크림') typeName = CareProductType.CREAM;
 
       const careProductsContainKeyword = await this.careProductRepository.find({
         where: [
