@@ -9,5 +9,6 @@ import { CareProduct } from 'src/domain/care_product';
   imports: [TypeOrmModule.forFeature([User, CareProduct])],
   providers: [OwnedProductService],
   controllers: [OwnedProductController],
+  exports: [OwnedProductService],
 })
 export class OwnedProductModule {}
