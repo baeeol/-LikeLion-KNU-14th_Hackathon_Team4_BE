@@ -29,7 +29,7 @@ export class CareRoutineService {
   ) {}
 
   async suggestCareRoutine(
-    skinType: '건성' | '지성' | '복합성' | '수부지' | '미정',
+    skinType: string,
     careProductIdList: number[],
     solutionTarget: string,
   ): Promise<CareRoutine> {
@@ -69,6 +69,9 @@ export class CareRoutineService {
       if (apiResponse.output_parsed === null) {
         throw new InternalServerErrorException('');
       }
+
+      console.log(userPrompt);
+      console.log(apiResponse.output_parsed);
 
       return await this.createCareRoutine(apiResponse.output_parsed);
     } catch (e) {

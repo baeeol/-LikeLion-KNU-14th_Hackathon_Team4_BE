@@ -3,11 +3,13 @@ import {
   Entity,
   JoinTable,
   ManyToMany,
+  OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { UserSkinType } from './user_skin_type.entity';
 import { CareProduct } from './care_product';
+import { UserRoutine } from './user_routine';
 
 @Entity()
 export class User {
@@ -32,6 +34,9 @@ export class User {
   @ManyToMany(() => CareProduct)
   @JoinTable()
   ownedProducts: CareProduct[];
+
+  @OneToMany(() => UserRoutine, (userRoutine) => userRoutine.user)
+  routines: UserRoutine[];
 
   static create(
     nickname: string,
