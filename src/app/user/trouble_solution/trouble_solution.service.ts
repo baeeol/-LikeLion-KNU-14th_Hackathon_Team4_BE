@@ -16,11 +16,14 @@ export class TroubleSolutionService {
   constructor() {}
 
   async decideCanSolveNow(
+    skinType: string,
     trouble: string,
     careProductDataForPrompt: CareProductDataForPrompt,
   ): Promise<boolean> {
     try {
-      const userPrompt = `현재 나의 피부 트러블: '${trouble}'.
+      const userPrompt = `
+                        나의 피부 타입: ${skinType}.
+                        현재 나의 피부 트러블: '${trouble}'.
                         내가 보유한 스킨 케어 제품: ${JSON.stringify(careProductDataForPrompt)}.`;
 
       const client = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
@@ -62,12 +65,15 @@ export class TroubleSolutionService {
   }
 
   async recommendCareProductForSolution(
+    skinType: string,
     trouble: string,
     careProductDataForPrompt: CareProductDataForPrompt,
     careProductList: CareProductDataForPrompt,
   ) {
     try {
-      const userPrompt = `현재 나의 피부 트러블: '${trouble}'.
+      const userPrompt = `
+                        나의 피부 타입: ${skinType}.
+                        현재 나의 피부 트러블: '${trouble}'.
                         내가 보유한 스킨 케어 제품: ${JSON.stringify(careProductDataForPrompt)}.
                         스킨 케어 제품 리스트: ${JSON.stringify(careProductList)}`;
 

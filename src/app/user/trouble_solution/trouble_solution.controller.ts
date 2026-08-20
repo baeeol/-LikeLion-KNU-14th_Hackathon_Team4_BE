@@ -57,6 +57,7 @@ export class TroubleSolutionController {
 
     getSolutionResponseDto.canSolveNow =
       await this.troubleSolutionService.decideCanSolveNow(
+        ['건성', '지성', '복합성', '수부지', '미정'][user.skinType.type],
         trouble,
         careProductDataForPrompt,
       );
@@ -94,6 +95,7 @@ export class TroubleSolutionController {
 
       const { careProductId } =
         await this.troubleSolutionService.recommendCareProductForSolution(
+          ['건성', '지성', '복합성', '수부지', '미정'][user.skinType.type],
           trouble,
           careProductDataForPrompt,
           careProductList,
