@@ -16,9 +16,9 @@ import { Repository } from 'typeorm';
 import { UserRoutine } from 'src/domain/user_routine';
 import {
   CareProductInRoutine,
-  CareRoutine,
 } from 'src/app/care_routine/type/care_routine.type';
 import { CareProductType } from 'src/types/CareProductType';
+import { PatchUserRoutineRequestDto } from './dto/patch_user_routine.request.dto';
 
 @Controller('/user/:userId/routine')
 export class UserRoutineController {
@@ -66,7 +66,7 @@ export class UserRoutineController {
   @Patch()
   async patch(
     @Param('userId') userId: number,
-    @Body() body?: CareRoutine,
+    @Body() body?: PatchUserRoutineRequestDto,
   ): Promise<void> {
     const user = await this.userRepository.findOne({
       where: { id: userId },
@@ -79,8 +79,9 @@ export class UserRoutineController {
 
     // 트러블 상담 등에서 AI가 이미 만든 조정 루틴을 사용자가 적용한 경우
     // 새로 생성하지 않고 전달받은 루틴을 그대로 저장합니다.
-    if (Array.isArray(body?.routines)) {
-      await this.userRoutineService.patchRoutine(user, body);
+    const routines = body?.routines;
+    if (Array.isArray(routines)) {
+      await this.userRoutineService.patchRoutine(user, { routines });
       return;
     }
 
