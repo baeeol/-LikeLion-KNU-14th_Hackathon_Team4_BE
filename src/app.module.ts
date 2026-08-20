@@ -9,6 +9,7 @@ import { OwnedProductModule } from './app/user/owned_product/owned_product.modul
 import { UserModule } from './app/user/user/user.module';
 import { UserRoutineModule } from './app/user/routine/user_routine.module';
 import { TroubleSolutionModule } from './app/user/trouble_solution/trouble_solution.module';
+import { RateNewProductModule } from './app/user/rate_new_product/rate_new_product.module';
 
 @Module({
   imports: [
@@ -21,6 +22,7 @@ import { TroubleSolutionModule } from './app/user/trouble_solution/trouble_solut
     OwnedProductModule,
     UserRoutineModule,
     TroubleSolutionModule,
+    RateNewProductModule,
   ],
 })
 export class AppModule {
