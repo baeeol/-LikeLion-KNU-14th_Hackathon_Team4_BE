@@ -32,6 +32,7 @@ export class TroubleSolutionController {
   async getSolution(
     @Param('userId') userId: number,
     @Query('trouble') trouble: string,
+    @Query('forceRecommend') forceRecommend?: string,
   ): Promise<GetSolutionResponseDto> {
     const user = await this.userRepository.findOne({
       where: { id: userId },
@@ -56,12 +57,20 @@ export class TroubleSolutionController {
 
     const getSolutionResponseDto = new GetSolutionResponseDto();
 
-    const { canSolveNow, reason } =
-      await this.troubleSolutionService.decideCanSolveNow(
-        ['건성', '지성', '복합성', '수부지', '미정'][user.skinType.type],
-        trouble,
-        careProductDataForPrompt,
-      );
+    const decision =
+      forceRecommend === 'true'
+        ? {
+            canSolveNow: false,
+            reason:
+              '같은 고민에 대해 보유 제품 조정 루틴을 이미 적용했어요. 반복 조정 대신 추가로 보완할 수 있는 제품을 추천합니다.',
+          }
+        : await this.troubleSolutionService.decideCanSolveNow(
+            ['건성', '지성', '복합성', '수부지', '미정'][user.skinType.type],
+            trouble,
+            careProductDataForPrompt,
+          );
+
+    const { canSolveNow, reason } = decision;
     getSolutionResponseDto.canSolveNow = canSolveNow;
     getSolutionResponseDto.reason = reason;
 

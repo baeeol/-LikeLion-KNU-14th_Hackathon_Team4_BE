@@ -1,5 +1,6 @@
 import {
   BadRequestException,
+  Body,
   Controller,
   Get,
   Param,
@@ -13,7 +14,10 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { User } from 'src/domain/user.entity';
 import { Repository } from 'typeorm';
 import { UserRoutine } from 'src/domain/user_routine';
-import { CareProductInRoutine } from 'src/app/care_routine/type/care_routine.type';
+import {
+  CareProductInRoutine,
+  CareRoutine,
+} from 'src/app/care_routine/type/care_routine.type';
 import { CareProductType } from 'src/types/CareProductType';
 
 @Controller('/user/:userId/routine')
@@ -60,7 +64,10 @@ export class UserRoutineController {
   }
 
   @Patch()
-  async patch(@Param('userId') userId: number): Promise<void> {
+  async patch(
+    @Param('userId') userId: number,
+    @Body() body?: CareRoutine,
+  ): Promise<void> {
     const user = await this.userRepository.findOne({
       where: { id: userId },
       relations: { skinType: true },
@@ -68,6 +75,13 @@ export class UserRoutineController {
 
     if (user === null) {
       throw new BadRequestException('Does not exist user');
+    }
+
+    // 트러블 상담 등에서 AI가 이미 만든 조정 루틴을 사용자가 적용한 경우
+    // 새로 생성하지 않고 전달받은 루틴을 그대로 저장합니다.
+    if (Array.isArray(body?.routines)) {
+      await this.userRoutineService.patchRoutine(user, body);
+      return;
     }
 
     const ownedCareProduct = await this.ownedProductService.findAll(userId);
