@@ -19,7 +19,7 @@ export class TroubleSolutionService {
     skinType: string,
     trouble: string,
     careProductDataForPrompt: CareProductDataForPrompt,
-  ): Promise<boolean> {
+  ): Promise<{ canSolveNow: boolean; reason: string }> {
     try {
       const userPrompt = `
                         나의 피부 타입: ${skinType}.
@@ -53,7 +53,7 @@ export class TroubleSolutionService {
         throw new InternalServerErrorException('Internal server error');
       }
 
-      return apiResponse.output_parsed.canSolveNow;
+      return apiResponse.output_parsed;
     } catch (e) {
       if (e instanceof HttpException) {
         throw e;

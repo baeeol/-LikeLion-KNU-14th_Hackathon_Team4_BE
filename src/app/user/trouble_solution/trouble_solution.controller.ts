@@ -56,12 +56,14 @@ export class TroubleSolutionController {
 
     const getSolutionResponseDto = new GetSolutionResponseDto();
 
-    getSolutionResponseDto.canSolveNow =
+    const { canSolveNow, reason } =
       await this.troubleSolutionService.decideCanSolveNow(
         ['건성', '지성', '복합성', '수부지', '미정'][user.skinType.type],
         trouble,
         careProductDataForPrompt,
       );
+    getSolutionResponseDto.canSolveNow = canSolveNow;
+    getSolutionResponseDto.reason = reason;
 
     if (getSolutionResponseDto.canSolveNow) {
       const careProductIdList = user.ownedProducts.map((careProduct) => {

@@ -17,7 +17,7 @@ export class RateNewProductService {
     skinType: string,
     newProduct: CareProductDataForPrompt,
     ownedProduct: CareProductDataForPrompt,
-  ): Promise<boolean> {
+  ): Promise<{ canJoinNow: boolean; reason: string }> {
     try {
       const userPrompt = `
                         나의 피부 타입: ${skinType},
@@ -51,7 +51,7 @@ export class RateNewProductService {
         throw new InternalServerErrorException('Internal server error');
       }
 
-      return apiResponse.output_parsed.canJoinNow;
+      return apiResponse.output_parsed;
     } catch (e) {
       if (e instanceof HttpException) {
         throw e;

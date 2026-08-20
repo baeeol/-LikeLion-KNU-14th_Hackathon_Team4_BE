@@ -10,5 +10,6 @@ export type NeededCareProductForTroubleSolution = {
 
 export class GetSolutionResponseDto {
   canSolveNow: boolean;
+  reason: string;
   data: CareRoutine | NeededCareProductForTroubleSolution;
 }

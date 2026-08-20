@@ -72,11 +72,14 @@ export class RateNewProductController {
 
     const response = new GetRateNewProductReportResponseDto();
 
-    response.canJoinNow = await this.rateNewProductService.decideCanJoinNow(
-      ['건조', '지성', '복합성', '수부지'][user.skinType.type],
-      newProductForPrompt,
-      ownedProductForPrompt,
-    );
+    const { canJoinNow, reason } =
+      await this.rateNewProductService.decideCanJoinNow(
+        ['건조', '지성', '복합성', '수부지'][user.skinType.type],
+        newProductForPrompt,
+        ownedProductForPrompt,
+      );
+    response.canJoinNow = canJoinNow;
+    response.reason = reason;
 
     if (response.canJoinNow) {
       const careProductIdList = user.ownedProducts.map((careProduct) => {

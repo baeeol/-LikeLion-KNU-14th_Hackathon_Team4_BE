@@ -12,5 +12,6 @@ export type ConflictResultFromRatingNewProduct = {
 
 export class GetRateNewProductReportResponseDto {
   canJoinNow: boolean;
+  reason: string;
   data: CareRoutine | ConflictResultFromRatingNewProduct;
 }

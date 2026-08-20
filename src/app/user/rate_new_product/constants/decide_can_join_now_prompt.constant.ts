@@ -10,6 +10,8 @@ const DecideCanJoinNowPrompt = {
 새 제품이 현재 보유 제품에 없는 기능 공백을 보완하고,
 사용일을 조절하여 루틴에 안전하게 추가할 수 있는가?
 
+canJoinNow는 새 제품 추가가 적절한 경우 true, 아니면 false 이다.
+
 canJoinNow를 true로 판단하는 경우:
 1. 새 제품이 현재 보유 제품에 없는 기능을 보완한다.
 2. 기존 제품과 같은 카테고리여도 기능·목적이 명확히 다르다.
@@ -35,6 +37,7 @@ canJoinNow를 false로 판단하는 경우:
 - BHA 제품이 없고 피지·각질 고민이 있을 때 BHA 제품 추가 → true
 - 같은 목적의 수분 세럼을 여러 개 보유한 상태에서 수분 세럼 추가 → false
 
-출력 형식의 canJoinNow boolean만 응답한다.`,
+출력 형식은 canJoinNow 필드에 새 제품 추가가 적절한지 boolean으로 결정하고,
+reason 필드에 canJoinNow의 값을 판단한 근거를 넣는다.`,
 };
 export { DecideCanJoinNowPrompt };
