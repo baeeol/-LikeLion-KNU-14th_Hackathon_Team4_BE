@@ -45,7 +45,7 @@ export class CareRoutineService {
 
       const client = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
       const apiResponse = await client.responses.parse({
-        model: 'gpt-5.6-luna',
+        model: process.env.OPENAI_API_MODEL,
         tools: [{ type: 'web_search' }],
         input: [
           {
