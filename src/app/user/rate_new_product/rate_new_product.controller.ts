@@ -13,6 +13,7 @@ import { Repository } from 'typeorm';
 import { CareProduct } from 'src/domain/care_product';
 import { CareProductType } from 'src/types/CareProductType';
 import { CareRoutineService } from 'src/app/care_routine/care_routine.service';
+import { CareProductDataForPrompt } from 'src/app/care_routine/type/care_routine.type';
 
 @Controller('/user/:userId/question_new_product')
 export class RateNewProductController {
@@ -46,25 +47,28 @@ export class RateNewProductController {
       throw new BadRequestException('Does not exist new product');
     }
 
-    const newProductForPrompt = [
+    const newProductForPrompt: CareProductDataForPrompt = [
       {
         id: newProduct.id,
         type: newProduct.type as CareProductType,
         brand: newProduct.brand,
         name: newProduct.name,
         keyword: newProduct.keyword,
+        ingredient: newProduct.ingredient,
       },
     ];
 
-    const ownedProductForPrompt = user.ownedProducts.map((ownedProduct) => {
-      return {
-        id: ownedProduct.id,
-        type: ownedProduct.type as CareProductType,
-        brand: ownedProduct.brand,
-        name: ownedProduct.name,
-        keyword: ownedProduct.keyword,
-      };
-    });
+    const ownedProductForPrompt: CareProductDataForPrompt =
+      user.ownedProducts.map((ownedProduct) => {
+        return {
+          id: ownedProduct.id,
+          type: ownedProduct.type as CareProductType,
+          brand: ownedProduct.brand,
+          name: ownedProduct.name,
+          keyword: ownedProduct.keyword,
+          ingredient: ownedProduct.ingredient,
+        };
+      });
 
     const response = new GetRateNewProductReportResponseDto();
 

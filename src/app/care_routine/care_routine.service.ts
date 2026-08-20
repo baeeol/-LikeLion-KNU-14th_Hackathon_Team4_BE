@@ -105,6 +105,7 @@ export class CareRoutineService {
             brand: careProduct.brand,
             name: careProduct.name,
             keyword: careProduct.keyword,
+            ingredient: careProduct.ingredient,
           };
         }),
       );

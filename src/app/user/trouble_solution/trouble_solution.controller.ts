@@ -50,6 +50,7 @@ export class TroubleSolutionController {
           brand: ownedProduct.brand,
           name: ownedProduct.name,
           keyword: ownedProduct.keyword,
+          ingredient: ownedProduct.ingredient,
         };
       });
 
@@ -89,6 +90,7 @@ export class TroubleSolutionController {
             brand: careProduct.brand,
             name: careProduct.name,
             keyword: careProduct.keyword,
+            ingredient: careProduct.ingredient,
           };
         },
       );

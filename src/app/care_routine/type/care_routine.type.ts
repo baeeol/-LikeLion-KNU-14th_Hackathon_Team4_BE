@@ -37,6 +37,7 @@ export type CareProductDataForPrompt = {
   brand: string;
   name: string;
   keyword: string;
+  ingredient: string;
 }[];
 
 const WeekdayRoutineZObj = z.object({
